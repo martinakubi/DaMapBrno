@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/filter.css">
+<link rel="stylesheet" href="css/nouislider.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <style>
+        #map {
+            width: 741px;
+            height: 627px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="js/tailDT.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/wNumb.js"></script>
+        <script src="data/Infrastructure_1.js"></script>
+        <script src="data/Intensity_2.js"></script>
+        <script src="data/Accidents_3.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[49.17488171615768,16.524839062745016],[49.251081160065034,16.662762330152702]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_OSMStandard_0');
+        map.getPane('pane_OSMStandard_0').style.zIndex = 400;
+        var layer_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            pane: 'pane_OSMStandard_0',
+            opacity: 0.5,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OSMStandard_0;
+        map.addLayer(layer_OSMStandard_0);
+        function pop_Infrastructure_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Implement.Year</th>\
+                        <td>' + (feature.properties['Implement.Year'] !== null ? autolinker.link(feature.properties['Implement.Year'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Type</th>\
+                        <td>' + (feature.properties['Type'] !== null ? autolinker.link(feature.properties['Type'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Infrastructure_1_0() {
+            return {
+                pane: 'pane_Infrastructure_1',
+                opacity: 1,
+                color: 'rgba(213,180,60,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Infrastructure_1');
+        map.getPane('pane_Infrastructure_1').style.zIndex = 401;
+        map.getPane('pane_Infrastructure_1').style['mix-blend-mode'] = 'normal';
+        var layer_Infrastructure_1 = new L.geoJson(json_Infrastructure_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Infrastructure_1',
+            layerName: 'layer_Infrastructure_1',
+            pane: 'pane_Infrastructure_1',
+            onEachFeature: pop_Infrastructure_1,
+            style: style_Infrastructure_1_0,
+        });
+        bounds_group.addLayer(layer_Infrastructure_1);
+        map.addLayer(layer_Infrastructure_1);
+        function pop_Intensity_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Intensity</th>\
+                        <td>' + (feature.properties['Intensity'] !== null ? autolinker.link(feature.properties['Intensity'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Intensity_2_0(feature) {
+            if (feature.properties['Intensity'] >= 0.000000 && feature.properties['Intensity'] <= 2327.600000 ) {
+                return {
+                pane: 'pane_Intensity_2',
+                opacity: 1,
+                color: 'rgba(133,30,7,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1,
+                fillOpacity: 0,
+                interactive: true,
+            }
+            }
+            if (feature.properties['Intensity'] >= 2327.600000 && feature.properties['Intensity'] <= 4655.200000 ) {
+                return {
+                pane: 'pane_Intensity_2',
+                opacity: 1,
+                color: 'rgba(133,30,7,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+            }
+            if (feature.properties['Intensity'] >= 4655.200000 && feature.properties['Intensity'] <= 6982.800000 ) {
+                return {
+                pane: 'pane_Intensity_2',
+                opacity: 1,
+                color: 'rgba(133,30,7,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+            }
+            if (feature.properties['Intensity'] >= 6982.800000 && feature.properties['Intensity'] <= 9310.400000 ) {
+                return {
+                pane: 'pane_Intensity_2',
+                opacity: 1,
+                color: 'rgba(133,30,7,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+            }
+            if (feature.properties['Intensity'] >= 9310.400000 && feature.properties['Intensity'] <= 11638.000000 ) {
+                return {
+                pane: 'pane_Intensity_2',
+                opacity: 1,
+                color: 'rgba(133,30,7,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_Intensity_2');
+        map.getPane('pane_Intensity_2').style.zIndex = 402;
+        map.getPane('pane_Intensity_2').style['mix-blend-mode'] = 'normal';
+        var layer_Intensity_2 = new L.geoJson(json_Intensity_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Intensity_2',
+            layerName: 'layer_Intensity_2',
+            pane: 'pane_Intensity_2',
+            onEachFeature: pop_Intensity_2,
+            style: style_Intensity_2_0,
+        });
+        bounds_group.addLayer(layer_Intensity_2);
+        map.addLayer(layer_Intensity_2);
+        function pop_Accidents_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">date</th>\
+                        <td>' + (feature.properties['date'] !== null ? autolinker.link(feature.properties['date'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">time</th>\
+                        <td>' + (feature.properties['time'] !== null ? autolinker.link(feature.properties['time'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">collision</th>\
+                        <td>' + (feature.properties['collision'] !== null ? autolinker.link(feature.properties['collision'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">alcohol</th>\
+                        <td>' + (feature.properties['alcohol'] !== null ? autolinker.link(feature.properties['alcohol'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">guilt</th>\
+                        <td>' + (feature.properties['guilt'] !== null ? autolinker.link(feature.properties['guilt'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">road_conditions</th>\
+                        <td>' + (feature.properties['road_conditions'] !== null ? autolinker.link(feature.properties['road_conditions'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">weather_conditions</th>\
+                        <td>' + (feature.properties['weather_conditions'] !== null ? autolinker.link(feature.properties['weather_conditions'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">visibility</th>\
+                        <td>' + (feature.properties['visibility'] !== null ? autolinker.link(feature.properties['visibility'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">drivers_view</th>\
+                        <td>' + (feature.properties['drivers_view'] !== null ? autolinker.link(feature.properties['drivers_view'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">place_acc</th>\
+                        <td>' + (feature.properties['place_acc'] !== null ? autolinker.link(feature.properties['place_acc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">type_infrastructure</th>\
+                        <td>' + (feature.properties['type_infrastructure'] !== null ? autolinker.link(feature.properties['type_infrastructure'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">day_night</th>\
+                        <td>' + (feature.properties['day_night'] !== null ? autolinker.link(feature.properties['day_night'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">consequency</th>\
+                        <td>' + (feature.properties['consequency'] !== null ? autolinker.link(feature.properties['consequency'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Accidents_3_0(feature) {
+            switch(String(feature.properties['guilt'])) {
+                case 'car':
+                    return {
+                pane: 'pane_Accidents_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(175,183,250,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'cyclist':
+                    return {
+                pane: 'pane_Accidents_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,172,173,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'other':
+                    return {
+                pane: 'pane_Accidents_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(243,185,241,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'pedesterian':
+                    return {
+                pane: 'pane_Accidents_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(195,248,192,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_Accidents_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(228,124,187,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Accidents_3');
+        map.getPane('pane_Accidents_3').style.zIndex = 403;
+        map.getPane('pane_Accidents_3').style['mix-blend-mode'] = 'normal';
+        var layer_Accidents_3 = new L.geoJson(json_Accidents_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Accidents_3',
+            layerName: 'layer_Accidents_3',
+            pane: 'pane_Accidents_3',
+            onEachFeature: pop_Accidents_3,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Accidents_3_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Accidents_3);
+        map.addLayer(layer_Accidents_3);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'Accidents<br /><table><tr><td style="text-align: center;"><img src="legend/Accidents_3_car0.png" /></td><td>car</td></tr><tr><td style="text-align: center;"><img src="legend/Accidents_3_cyclist1.png" /></td><td>cyclist</td></tr><tr><td style="text-align: center;"><img src="legend/Accidents_3_other2.png" /></td><td>other</td></tr><tr><td style="text-align: center;"><img src="legend/Accidents_3_pedesterian3.png" /></td><td>pedesterian</td></tr><tr><td style="text-align: center;"><img src="legend/Accidents_3_4.png" /></td><td></td></tr></table>': layer_Accidents_3,'Intensity<br /><table><tr><td style="text-align: center;"><img src="legend/Intensity_2_10.png" /></td><td>1</td></tr><tr><td style="text-align: center;"><img src="legend/Intensity_2_21.png" /></td><td>2</td></tr><tr><td style="text-align: center;"><img src="legend/Intensity_2_32.png" /></td><td>3</td></tr><tr><td style="text-align: center;"><img src="legend/Intensity_2_43.png" /></td><td>4</td></tr><tr><td style="text-align: center;"><img src="legend/Intensity_2_54.png" /></td><td>5</td></tr></table>': layer_Intensity_2,'<img src="legend/Infrastructure_1.png" /> Infrastructure': layer_Infrastructure_1,"OSM Standard": layer_OSMStandard_0,}).addTo(map);
+        setBounds();
+        var mapDiv = document.getElementById('map');
+        var row = document.createElement('div');
+        row.className="row";
+        row.id="all";
+        row.style.height = "100%";
+        var col1 = document.createElement('div');
+        col1.className="col9";
+        col1.id = "mapWindow";
+        col1.style.height = "99%";
+        col1.style.width = "80%";
+        col1.style.display = "inline-block";
+        var col2 = document.createElement('div');
+        col2.className="col3";
+        col2.id = "menu";
+        col2.style.display = "inline-block";
+        mapDiv.parentNode.insertBefore(row, mapDiv);
+        document.getElementById("all").appendChild(col1);
+        document.getElementById("all").appendChild(col2);
+        col1.appendChild(mapDiv)
+        var Filters = {"Intensity": "int","day_night": "str","Type": "str","collision": "str","consequency": "str","alcohol": "str","guilt": "str"};
+        function filterFunc() {
+          map.eachLayer(function(lyr){
+          if ("options" in lyr && "dataVar" in lyr["options"]){
+            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            try{
+              for (key in Filters){
+                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
+                if (Filters[key] == "str" || Filters[key] == "bool"){
+                  var selection = [];
+                  var options = document.getElementById("sel_" + keyS).options
+                  for (var i=0; i < options.length; i++) {
+                    if (options[i].selected) selection.push(options[i].value);
+                  }
+                    try{
+                      if (key in features[0].properties){
+                        for (i = features.length - 1;
+                          i >= 0; --i){
+                          if (selection.indexOf(
+                          features[i].properties[key])<0
+                          && selection.length>0) {
+                          features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                  }
+                }
+                if (Filters[key] == "int"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (parseInt(features[i].properties[key])
+                          < sliderVals[0]
+                          || parseInt(features[i].properties[key])
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "real"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (features[i].properties[key]
+                          < sliderVals[0]
+                          || features[i].properties[key]
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "date"
+                  || Filters[key] == "datetime"
+                  || Filters[key] == "time"){
+                  try{
+                    if (key in features[0].properties){
+                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
+                      startdate = document.getElementById("dat_" +
+                        HTMLkey + "_date1").value.replace(" ", "T");
+                      enddate = document.getElementById("dat_" +
+                        HTMLkey + "_date2").value.replace(" ", "T");
+                      for (i = features.length - 1; i >= 0; --i){
+                        if (features[i].properties[key] < startdate
+                          || features[i].properties[key] > enddate){
+                          features.splice(i,1);
+                        }
+                      }
+                    }
+                  } catch(err){
+                  }
+                }
+              }
+            } catch(err){
+            }
+          this[lyr["options"]["layerName"]].clearLayers();
+          this[lyr["options"]["layerName"]].addData(features);
+          }
+          })
+        }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_Intensity = document.createElement("div");
+            div_Intensity.id = "div_Intensity";
+            div_Intensity.className = "slider";
+            document.getElementById("menu").appendChild(div_Intensity);
+            var lab_Intensity = document.createElement('div');
+            lab_Intensity.innerHTML  = 'Intensity: <span id="val_Intensity"></span>';
+            lab_Intensity.className = 'filterlabel';
+            document.getElementById("menu").appendChild(lab_Intensity);
+            var reset_Intensity = document.createElement('div');
+            reset_Intensity.innerHTML = 'clear filter';
+            reset_Intensity.className = 'filterlabel';
+            lab_Intensity.className = 'filterlabel';
+            reset_Intensity.onclick = function() {
+                sel_Intensity.noUiSlider.reset();
+            };
+            document.getElementById("menu").appendChild(reset_Intensity);
+            var sel_Intensity = document.getElementById('div_Intensity');
+            noUiSlider.create(sel_Intensity, {
+                connect: true,
+                start: [0, 11638],
+                step: 1,
+                format: wNumb({
+                    decimals: 0,
+                    }),
+                range: {
+                min: 0,
+                max: 11638
+                }
+            });
+            sel_Intensity.noUiSlider.on('update', function (values) {
+            filterVals =[];
+            for (value in values){
+            filterVals.push(parseInt(value))
+            }
+            val_Intensity = document.getElementById('val_Intensity');
+            val_Intensity.innerHTML = values.join(' - ');
+                filterFunc()
+            });
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_day_night = document.createElement('div');
+            div_day_night.id = "div_day_night";
+            div_day_night.className= "filterselect";
+            document.getElementById("menu").appendChild(div_day_night);
+            sel_day_night = document.createElement('select');
+            sel_day_night.multiple = true;
+            sel_day_night.size = 2;
+            sel_day_night.id = "sel_day_night";
+            var day_night_options_str = "<option value='' unselected></option>";
+            sel_day_night.onchange = function(){filterFunc()};
+            day_night_options_str  += '<option value="day">day</option>';
+            day_night_options_str  += '<option value="night">night</option>';
+            sel_day_night.innerHTML = day_night_options_str;
+            div_day_night.appendChild(sel_day_night);
+            var lab_day_night = document.createElement('div');
+            lab_day_night.innerHTML = 'day_night';
+            lab_day_night.className = 'filterlabel';
+            div_day_night.appendChild(lab_day_night);
+            var reset_day_night = document.createElement('div');
+            reset_day_night.innerHTML = 'clear filter';
+            reset_day_night.className = 'filterlabel';
+            reset_day_night.onclick = function() {
+                var options = document.getElementById("sel_day_night").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_day_night.appendChild(reset_day_night);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_Type = document.createElement('div');
+            div_Type.id = "div_Type";
+            div_Type.className= "filterselect";
+            document.getElementById("menu").appendChild(div_Type);
+            sel_Type = document.createElement('select');
+            sel_Type.multiple = true;
+            sel_Type.size = 10;
+            sel_Type.id = "sel_Type";
+            var Type_options_str = "<option value='' unselected></option>";
+            sel_Type.onchange = function(){filterFunc()};
+            Type_options_str  += '<option value="combined_buslane">combined_buslane</option>';
+            Type_options_str  += '<option value="cycle_crossing">cycle_crossing</option>';
+            Type_options_str  += '<option value="cycle_lane">cycle_lane</option>';
+            Type_options_str  += '<option value="cycle_lane_segregated">cycle_lane_segregated</option>';
+            Type_options_str  += '<option value="cycle_lane_segregated_opposite">cycle_lane_segregated_opposite</option>';
+            Type_options_str  += '<option value="cycle_path">cycle_path</option>';
+            Type_options_str  += '<option value="cycle_pictogram">cycle_pictogram</option>';
+            Type_options_str  += '<option value="no_cyclist">no_cyclist</option>';
+            Type_options_str  += '<option value="other">other</option>';
+            Type_options_str  += '<option value="path_canceled">path_canceled</option>';
+            sel_Type.innerHTML = Type_options_str;
+            div_Type.appendChild(sel_Type);
+            var lab_Type = document.createElement('div');
+            lab_Type.innerHTML = 'Type';
+            lab_Type.className = 'filterlabel';
+            div_Type.appendChild(lab_Type);
+            var reset_Type = document.createElement('div');
+            reset_Type.innerHTML = 'clear filter';
+            reset_Type.className = 'filterlabel';
+            reset_Type.onclick = function() {
+                var options = document.getElementById("sel_Type").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_Type.appendChild(reset_Type);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_collision = document.createElement('div');
+            div_collision.id = "div_collision";
+            div_collision.className= "filterselect";
+            document.getElementById("menu").appendChild(div_collision);
+            sel_collision = document.createElement('select');
+            sel_collision.multiple = true;
+            sel_collision.size = 2;
+            sel_collision.id = "sel_collision";
+            var collision_options_str = "<option value='' unselected></option>";
+            sel_collision.onchange = function(){filterFunc()};
+            collision_options_str  += '<option value="collision with a moving vehicle">collision with a moving vehicle</option>';
+            collision_options_str  += '<option value="other accident">other accident</option>';
+            sel_collision.innerHTML = collision_options_str;
+            div_collision.appendChild(sel_collision);
+            var lab_collision = document.createElement('div');
+            lab_collision.innerHTML = 'collision';
+            lab_collision.className = 'filterlabel';
+            div_collision.appendChild(lab_collision);
+            var reset_collision = document.createElement('div');
+            reset_collision.innerHTML = 'clear filter';
+            reset_collision.className = 'filterlabel';
+            reset_collision.onclick = function() {
+                var options = document.getElementById("sel_collision").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_collision.appendChild(reset_collision);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_consequency = document.createElement('div');
+            div_consequency.id = "div_consequency";
+            div_consequency.className= "filterselect";
+            document.getElementById("menu").appendChild(div_consequency);
+            sel_consequency = document.createElement('select');
+            sel_consequency.multiple = true;
+            sel_consequency.size = 2;
+            sel_consequency.id = "sel_consequency";
+            var consequency_options_str = "<option value='' unselected></option>";
+            sel_consequency.onchange = function(){filterFunc()};
+            consequency_options_str  += '<option value="efect on life">efect on life</option>';
+            consequency_options_str  += '<option value="only material damage">only material damage</option>';
+            sel_consequency.innerHTML = consequency_options_str;
+            div_consequency.appendChild(sel_consequency);
+            var lab_consequency = document.createElement('div');
+            lab_consequency.innerHTML = 'consequency';
+            lab_consequency.className = 'filterlabel';
+            div_consequency.appendChild(lab_consequency);
+            var reset_consequency = document.createElement('div');
+            reset_consequency.innerHTML = 'clear filter';
+            reset_consequency.className = 'filterlabel';
+            reset_consequency.onclick = function() {
+                var options = document.getElementById("sel_consequency").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_consequency.appendChild(reset_consequency);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_alcohol = document.createElement('div');
+            div_alcohol.id = "div_alcohol";
+            div_alcohol.className= "filterselect";
+            document.getElementById("menu").appendChild(div_alcohol);
+            sel_alcohol = document.createElement('select');
+            sel_alcohol.multiple = true;
+            sel_alcohol.size = 4;
+            sel_alcohol.id = "sel_alcohol";
+            var alcohol_options_str = "<option value='' unselected></option>";
+            sel_alcohol.onchange = function(){filterFunc()};
+            alcohol_options_str  += '<option value="no">no</option>';
+            alcohol_options_str  += '<option value="not checked">not checked</option>';
+            alcohol_options_str  += '<option value="under drug influence">under drug influence</option>';
+            alcohol_options_str  += '<option value="yes">yes</option>';
+            sel_alcohol.innerHTML = alcohol_options_str;
+            div_alcohol.appendChild(sel_alcohol);
+            var lab_alcohol = document.createElement('div');
+            lab_alcohol.innerHTML = 'alcohol';
+            lab_alcohol.className = 'filterlabel';
+            div_alcohol.appendChild(lab_alcohol);
+            var reset_alcohol = document.createElement('div');
+            reset_alcohol.innerHTML = 'clear filter';
+            reset_alcohol.className = 'filterlabel';
+            reset_alcohol.onclick = function() {
+                var options = document.getElementById("sel_alcohol").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_alcohol.appendChild(reset_alcohol);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_guilt = document.createElement('div');
+            div_guilt.id = "div_guilt";
+            div_guilt.className= "filterselect";
+            document.getElementById("menu").appendChild(div_guilt);
+            sel_guilt = document.createElement('select');
+            sel_guilt.multiple = true;
+            sel_guilt.size = 4;
+            sel_guilt.id = "sel_guilt";
+            var guilt_options_str = "<option value='' unselected></option>";
+            sel_guilt.onchange = function(){filterFunc()};
+            guilt_options_str  += '<option value="car">car</option>';
+            guilt_options_str  += '<option value="cyclist">cyclist</option>';
+            guilt_options_str  += '<option value="other">other</option>';
+            guilt_options_str  += '<option value="pedesterian">pedesterian</option>';
+            sel_guilt.innerHTML = guilt_options_str;
+            div_guilt.appendChild(sel_guilt);
+            var lab_guilt = document.createElement('div');
+            lab_guilt.innerHTML = 'guilt';
+            lab_guilt.className = 'filterlabel';
+            div_guilt.appendChild(lab_guilt);
+            var reset_guilt = document.createElement('div');
+            reset_guilt.innerHTML = 'clear filter';
+            reset_guilt.className = 'filterlabel';
+            reset_guilt.onclick = function() {
+                var options = document.getElementById("sel_guilt").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_guilt.appendChild(reset_guilt);
+        </script>
+    </body>
+</html>
